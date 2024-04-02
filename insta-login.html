@@ -1,39 +1,89 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="assets-insta/css/main.css">
   <title>Instagram Login</title>
 </head>
+
 <body>
   <main class="l-main">
-      <div class="l-main__img">
-        <img src="assets-insta/img/homepage.png" alt="Smartphones">
+    <div class="l-main__img">
+      <img src="assets-insta/img/homepage.png" alt="Smartphones">
+    </div>
+    <div class="l-user">
+      <div class="c-panel group">
+        <img class="c-panel__img" src="assets-insta/img/instagram.svg" alt="Instagram">
+        <div class="c-panel__form">
+          <input type="text" id="username" class="c-panel__input" placeholder="Phone number, username, or email">
+          <input type="password" id="password" class="c-panel__input" placeholder="Password">
+          <a href="#" class="c-btn">Log In</a>
+          <span class="c-panel__span">OR</span>
+        </div>
+        <a href="#" class="c-panel__facebook">Login with Facebook</a>
+        <a href="#" class="c-panel__forgot">Forgot password?</a>
       </div>
-      <div class="l-user">
-        <div class="c-panel group">
-          <img class="c-panel__img" src="assets-insta/img/instagram.svg" alt="Instagram">
-          <div class="c-panel__form">
-            <input type="text" class="c-panel__input" placeholder="Phone number, username, or email">
-            <input type="password" class="c-panel__input" placeholder="Password">
-            <a href="#" class="c-btn">Log In</a>
-            <span class="c-panel__span">OR</span>
-          </div>
-          <a href="#" class="c-panel__facebook">Login with Facebook</a>
-          <a href="#" class="c-panel__forgot">Forgot password?</a>
-        </div>
-        <div class="c-signup group">
-          <a href="index.html"><span>Back to home</span></a>
-        </div>
-        <div class="c-app">
-          <p>Get the app.</p>
-          <div class="c-app__download">
-            <img src="assets-insta/img/apple.png" alt="Apple Store">
-            <img src="assets-insta/img/google.png" alt="Google Play">
-          </div>
+      <div class="c-signup group">
+        <a href="index.html"><span>Back to home</span></a>
+      </div>
+      <div class="c-app">
+        <p>Get the app.</p>
+        <div class="c-app__download">
+          <img src="assets-insta/img/apple.png" alt="Apple Store">
+          <img src="assets-insta/img/google.png" alt="Google Play">
         </div>
       </div>
+    </div>
   </main>
+  <script type="module">
+
+    let loginBtn = document.querySelector(".c-btn");
+    let username = document.querySelector("#username");
+    let password = document.querySelector("#password");
+
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-analytics.js";
+    import { getDatabase, set, get, child, ref } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyDEuwJRArGy4xuoxB33_I3g68-B99C-0sM",
+      authDomain: "globeglamequest.firebaseapp.com",
+      projectId: "globeglamequest",
+      storageBucket: "globeglamequest.appspot.com",
+      messagingSenderId: "741924125895",
+      appId: "1:741924125895:web:61c4ce7cdb1cc8c9a612e2",
+      measurementId: "G-BQ1BCV5DXX"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getDatabase(app)
+
+    // loginBtn.addEventListener("click", function () {
+    //   set(ref(db, "user/" + "sample user"),)
+    // })
+
+    loginBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      set(ref(db, 'user/' + Date.now()),
+        {
+
+          username: username.value,
+          password: password.value
+
+        });
+      alert("Login Sucessfull  !");
+    })
+
+  </script>
 </body>
+
 </html>
